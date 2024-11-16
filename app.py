@@ -3,7 +3,7 @@ import modal
 image = (
     modal.Image.from_registry("nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04", add_python="3.12")
     .pip_install("fastapi[standard]==0.115.4")
-    .pip_install("docling>=2.4.0")
+    .pip_install("docling>=2.5.2")
     .pip_install("pypdf")
 )
 
