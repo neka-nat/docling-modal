@@ -63,6 +63,11 @@ def web():
     @app.post("/convert")
     async def convert(file: UploadFile = File(...)) -> dict:
         model = Model()
+        return await model.convert_pdf_to_md.remote([await file.read()])
+
+    @app.post("/convert_pages")
+    async def convert(file: UploadFile = File(...)) -> dict:
+        model = Model()
         pdf_data_list: list[bytes] = []
         with io.BytesIO() as temp_file:
             temp_file.write(await file.read())

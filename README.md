@@ -11,6 +11,8 @@ uv run modal setup
 uv run modal deploy app.py
 ```
 
+Send a request to the server.
+
 ```bash
 curl -X POST https://<your-app-name>.modal.run/convert -H "Content-Type: multipart/form-data" -F "file=@test.pdf"
 ```
