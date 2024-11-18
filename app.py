@@ -61,12 +61,13 @@ def web():
     app = FastAPI()
 
     @app.post("/convert")
-    async def convert(file: UploadFile = File(...)) -> dict:
+    async def convert(file: UploadFile = File(...)) -> Response:
         model = Model()
-        return await model.convert_pdf_to_md.remote([await file.read()])
+        res = await model.convert_pdf_to_md.remote.aio(await file.read())
+        return Response(res)
 
     @app.post("/convert_pages")
-    async def convert(file: UploadFile = File(...)) -> dict:
+    async def convert(file: UploadFile = File(...)) -> Response:
         model = Model()
         pdf_data_list: list[bytes] = []
         with io.BytesIO() as temp_file:
@@ -90,4 +91,4 @@ def main(input_test_pdf: str = "./test.pdf"):
     modal = Model()
     with open(input_test_pdf, "rb") as f:
         pdf_data = f.read()
-    print(modal.convert_pdf_to_md.remote(pdf_data))
+    print(modal.convert_pdf_to_md.remote([pdf_data]))
